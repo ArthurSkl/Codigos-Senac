@@ -1,0 +1,144 @@
+<ContentNavigationDrawer>:  
+    MDList:
+
+        OneLineListItem:
+            text: "Screen 1"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 1"
+                
+        OneLineListItem:
+            text: "Screen 2"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 2"
+
+        OneLineListItem:
+            text: "Screen 3"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 3"
+
+        OneLineListItem:
+            text: "Screen 4"
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 3"                
+        OneLineListItem:
+            text: "Screen 5"  # Renomeado para evitar duplicação
+            on_press:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "scr 4"
+MDScreen:
+
+    MDTopAppBar:
+        pos_hint: {"top": 1}
+        elevation: 4
+        title: "MDNavigationDrawer"
+        left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+    MDNavigationLayout:
+
+        MDScreenManager:
+        
+            id: screen_manager
+
+            MDScreen:
+                name: "scr 1"
+
+                MDLabel:
+                    text: "Formulario De Cadastro"
+                    halign: "center"
+                    pos_hint: {"center_x": .5, "center_y": .8}
+                    font_size:26
+
+                MDTextField:
+                    id: nome
+                    hint_text: "Nome"
+                    helper_text: "Digite Seu Nome "
+                    helper_text_mode: "on_error"
+                    pos_hint: {"center_x": .5, "center_y": .7}
+                    size_hint_x: .6  
+
+                MDTextField:
+                    id: descricao
+                    hint_text: "Descrição"
+                    helper_text: "Digite A Descrição Da Tarefa "
+                    helper_text_mode: "on_error"
+                    pos_hint: {"center_x": .5, "center_y": .6}
+                    size_hint_x: .6  
+
+                MDTextField:
+                    id: data
+                    hint_text: "Data"
+                    helper_text: "Informe A Data Da Tarefa"
+                    helper_text_mode: "on_error"
+                    pos_hint: {"center_x": .4, "center_y": .5}
+                    size_hint_x: .4  
+
+                MDFloatLayout:
+
+                    MDRectangleFlatIconButton:
+                        icon: "calendar"
+                        text: "Data"
+                        pos_hint: {'center_x': .71, 'center_y': .5}
+                        theme_text_color: "Custom"
+                        text_color: "white"
+                        line_color: "red"
+                        theme_icon_color: "Custom"
+                        icon_color: "orange"
+                        on_release: app.show_date_picker()
+                        size_hint_x: .18  
+
+                # MDTextField:
+                #     id: estado
+                #     hint_text: "Estado"
+                #     helper_text: "Informe O Estado Da Tarefa "
+                #     helper_text_mode: "on_error"
+                #     pos_hint: {"center_x": .5, "center_y": .4}
+                #     size_hint_x: .6      
+
+                MDRectangleFlatButton:
+                    text: "Voltar"
+                    theme_text_color: "Custom"
+                    text_color: "white"
+                    line_color: "red"
+                    pos_hint: {"center_x": .31, "center_y": .28}
+                    size_hint_x: .22  
+
+                MDRectangleFlatButton:
+                    text: "Cadastrar"
+                    on_press:app.get_dados()
+                    theme_text_color: "Custom"
+                    text_color: "white"
+                    line_color: "red"
+                    pos_hint: {"center_x": .69, "center_y": .28}        
+                    size_hint_x: .22                            
+            MDScreen:
+                name: "scr 2" 
+
+                MDBoxLayout:
+                    orientation: 'vertical'
+
+                MDScrollView:
+                    pos_hint: {"center_x": .5, "center_y": .4 }        
+                       
+
+                    MDList:
+
+                        id: id_item_lista
+
+            MDScreen:
+                name: "scr 3"
+            MDScreen:
+                name: "scr 4"
+            MDScreen:
+                name: "scr 5"            
+        
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+
+            ContentNavigationDrawer:
+                screen_manager: screen_manager
+                nav_drawer: nav_drawer
