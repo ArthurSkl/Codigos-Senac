@@ -130,6 +130,74 @@ MDScreen:
 
             MDScreen:
                 name: "scr 3"
+                MDLabel:
+                    text: "Formulario De Cadastro"
+                    halign: "center"
+                    pos_hint: {"center_x": .5, "center_y": .8}
+                    font_size:26
+
+                MDTextField:
+                    id: nome
+                    hint_text: "Nome"
+                    helper_text: "Digite Seu Nome "
+                    helper_text_mode: "on_error"
+                    pos_hint: {"center_x": .5, "center_y": .7}
+                    size_hint_x: .6  
+
+                MDTextField:
+                    id: descricao
+                    hint_text: "Descrição"
+                    helper_text: "Digite A Descrição Da Tarefa "
+                    helper_text_mode: "on_error"
+                    pos_hint: {"center_x": .5, "center_y": .6}
+                    size_hint_x: .6  
+
+                MDTextField:
+                    id: data
+                    hint_text: "Data"
+                    helper_text: "Informe A Data Da Tarefa"
+                    helper_text_mode: "on_error"
+                    pos_hint: {"center_x": .4, "center_y": .5}
+                    size_hint_x: .4  
+
+                MDFloatLayout:
+
+                    MDRectangleFlatIconButton:
+                        icon: "calendar"
+                        text: "Data"
+                        pos_hint: {'center_x': .71, 'center_y': .5}
+                        theme_text_color: "Custom"
+                        text_color: "white"
+                        line_color: "red"
+                        theme_icon_color: "Custom"
+                        icon_color: "orange"
+                        on_release: app.show_date_picker()
+                        size_hint_x: .18  
+
+                # MDTextField:
+                #     id: estado
+                #     hint_text: "Estado"
+                #     helper_text: "Informe O Estado Da Tarefa "
+                #     helper_text_mode: "on_error"
+                #     pos_hint: {"center_x": .5, "center_y": .4}
+                #     size_hint_x: .6      
+
+                MDRectangleFlatButton:
+                    text: "Voltar"
+                    theme_text_color: "Custom"
+                    text_color: "white"
+                    line_color: "red"
+                    pos_hint: {"center_x": .31, "center_y": .28}
+                    size_hint_x: .22  
+
+                MDRectangleFlatButton:
+                    text: "Cadastrar"
+                    on_press:app.get_dados()
+                    theme_text_color: "Custom"
+                    text_color: "white"
+                    line_color: "red"
+                    pos_hint: {"center_x": .69, "center_y": .28}        
+                    size_hint_x: .22      
             MDScreen:
                 name: "scr 4"
             MDScreen:
