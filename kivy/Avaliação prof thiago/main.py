@@ -15,7 +15,9 @@ from kivymd.uix.screen import MDScreen
 from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.list import IRightBodyTouch, TwoLineAvatarIconListItem
 from kivy.properties import StringProperty
-
+from kivy.uix.recycleview.views import RecycleDataViewBehavior
+from kivy.uix.recycleboxlayout import RecycleBoxLayout
+from kivy.uix.recycleview import RecycleView
 class ContentNavigationDrawer(MDScrollView):
     screen_manager = ObjectProperty()
     nav_drawer = ObjectProperty()
@@ -154,38 +156,98 @@ class Example(MDApp):
     #             # ListItemWithCheckbox(text=f"Item {i}", icon=icons[i])
     #         )
             
+
+class CustomListItem(RecycleDataViewBehavior, TwoLineAvatarIconListItem):
+    def __init__(self, text='', secondary_text='', icon='', app=None, **kwargs):
+        super(CustomListItem, self).__init__()
+        self.text = text
+        self.secondary_text = secondary_text
+        self.icon = icon
+        self.app = app
+
+    def refresh_view_attrs(self, rv, index, data):
+        self.index = index
+        self.text = data['text']
+        self.secondary_text = data['secondary_text']
+        self.icon = data['icon']
+        return super(CustomListItem, self).refresh_view_attrs(rv, index, data)
+
+    def on_touch_down(self, touch):
+        if super(CustomListItem, self).on_touch_down(touch):
+            return True
+        if self.collide_point(*touch.pos) and touch.is_double_tap:
+            self.app.show_details(self.text, self.secondary_text, self.icon)
+    def show_details(self, text, secondary_text, icon):
+        # Atualize os widgets TwoLineAvatarIconListItem com os detalhes do item clicado
+        self.root.ids.mm1.text = text
+        self.root.ids.mm1.secondary_text = secondary_text
+        self.root.ids.i1.icon = icon
+class CustomRecycleView(RecycleView):
+    def __init__(self, app=None, **kwargs):
+        super(CustomRecycleView, self).__init__(**kwargs)
+        self.app = app
+        self.data = []
+
+
+
+
+
+
+
+
             
     
-    def save_checked(self,checkbox, value,a,b,c,w):
-        mmm="""
-            You clicked on:  Josue Carranza jbsidis
-            Selected Items 4: [[<WeakProxy to <kivy.factory.CB object at 0x7efc032f4430>>], [<WeakProxy to <kivy.factory.CB object at 0x7efc032f4430>>], [<WeakProxy to <kivy.factory.CB object at 0x7efc0324d9e0>>], [<WeakProxy to <kivy.factory.CB object at 0x7efc03137b30>>]]
-            """
+selected_item = []
+
+class SuaClasse:
+    # Outros métodos da sua classe
+
+    def save_checked(self, checkbox, value, a, b, c, w):
         if value:
             print('The checkbox is active', 'and', checkbox.state, 'state')
-            selected_item=[]
-            if len(selected_item)==0:
+
+            if len(selected_item) == 0:
                 selected_item = []
-                selected_item.append([w])
-                print("\n\nYou clicked on: ",a,b,c)
-                print("Selected Items "+str(len(selected_item))+": "+str(selected_item))
-            if len(selected_item)>0:
-                selected_item.append([w])
-                print("\n\nYou clicked on: ",a,b,c)
-                print("Selected Items "+str(len(selected_item))+": "+str(selected_item))
-                self.root.ids.cm.text="Save "+str(len(selected_item))
+                selected_item.append(w)
+                print("\n\nYou clicked on: ", a, b, c)
+                print("Selected Items " + str(len(selected_item)) + ": " + str(selected_item))
+            elif len(selected_item) > 0:
+                selected_item.append(w)
+                print("\n\nYou clicked on: ", a, b, c)
+                print("Selected Items " + str(len(selected_item))) + ": " + str(selected_item)
+
+            self.root.ids.cm.text = "Save " + str(len(selected_item))
         else:
             print('\n\nThe checkbox is inactive', 'and', checkbox.state, 'state')
-            new_list=[]
-            if len(selected_item)>0:
+            new_list = []
+
+            if len(selected_item) > 0:
                 for x in selected_item:
-                    if x==w:
+                    if x == w:
                         pass
-                    if x!=w:
-                        new_list=new_list+[w]
-                selected_item=new_list
-                
-                print("\n\nNew Items: "+str(selected_item))
+                    if x != w:
+                        new_list.append(x)
+                selected_item = new_list
+
+                print("\n\nNew Items: " + str(selected_item))
+
+            # Após a atualização, obtenha os dados da tabela
+            db = Banco()
+            data = db.mostrar_dados()
+
+            # Itere sobre os dados para encontrar o item correspondente
+            for item in data:
+                if item[0] == w:
+                    status = item[1]  # Status da tarefa
+                    self.root.ids.mm1.text = a
+                    self.root.ids.mm1.secondary_text = b
+                    self.root.ids.i1.icon = c
+
+                    # Atualize o estado da caixa de seleção com base no status
+                    self.root.ids.x54.active = status == "Feito"
+
+            # Atualize o texto do widget MDLabel
+            self.root.ids.cm.text = "Save " + str(len(selected_item))     
 
 
 

@@ -11,9 +11,19 @@ class Banco:
             # cur.execute("CREATE TABLE Tarefas (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, descricao TEXT, dia_em DATE, status TEXT DEFAULT 'A Fazer')")
             query = "INSERT INTO Tarefas (nome, descricao, dia_em) VALUES (?, ?, ?)"
             cur.execute(query, valores)
-            self.conexao.commit()
-            
-              
+            self.conexao.commit()             
+    # def mostrar_dados(self):
+    #     with self.conexao:
+    #         lista = []
+    #         cur = self.conexao.cursor()
+    #         query = "SELECT * FROM Tarefas"
+    #         cur.execute(query)
+    #         dados = cur.fetchall()
+    #         for i in dados:
+    #             lista.append(i)
+    #     return lista    
+    
+    
     def mostrar_dados(self):
         with self.conexao:
             lista = []
@@ -21,9 +31,11 @@ class Banco:
             query = "SELECT * FROM Tarefas"
             cur.execute(query)
             dados = cur.fetchall()
-            for i in dados:
-                lista.append(i)
-        return lista    
+        for i in dados:
+            # Adicione um valor que indica se a tarefa está "Feita" ou "Pendente"
+            status = "Feito" if i[1] == "Feito" else "Pendente"
+            lista.append((i[0], status, i[2], i[3], i[4]))
+        return lista
 
     # def atualiza_info(i):
     #     with conexao: 
@@ -51,4 +63,20 @@ class Banco:
 # print(lista)
 # valores = ('Exemplo', 'Descrição do exemplo', '2023-10-22', 'A Fazer')
 # banco.cadastro(valores)
+
+    def save_checked(self, checkbox, value, a, b, c, w):
+        if value:
+            new_status = 'Feito'
+        else:
+            new_status = 'Pendente'
+            cursor=self.conexao.cursor()
+            cursor.execute("UPDATE Tarefas SET status = ? WHERE coluna_w = ?", (new_status, w))
+            self.conexao.commit()
+            self.conexao.close()
+
+    # Exemplo de uso da função save_checked
+    # Substitua os valores apropriados para a, b, c e w
+   
+
+
 
