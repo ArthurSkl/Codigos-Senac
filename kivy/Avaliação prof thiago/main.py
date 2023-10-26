@@ -12,9 +12,9 @@ from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.screen import MDScreen
-
-
-
+from kivymd.uix.selectioncontrol import MDCheckbox
+from kivymd.uix.list import IRightBodyTouch, TwoLineAvatarIconListItem
+from kivy.properties import StringProperty
 
 class ContentNavigationDrawer(MDScrollView):
     screen_manager = ObjectProperty()
@@ -58,8 +58,6 @@ class Example(MDApp):
         self.root.ids.data.text = ""
         # self.root.ids.estado.text=""
       
-
-
     def on_save(self, instance, value, date_range):
         '''
         Events called when the "OK" dialog box button is clicked.
@@ -75,8 +73,7 @@ class Example(MDApp):
         # print(value)
         # print(self.data)
         self.root.ids.data.text=str(value)
-        self.data=value
-        
+        self.data=value       
 
     def on_cancel(self, instance, value):
         '''Events called when the "CANCEL" dialog box button is clicked.'''
@@ -159,7 +156,36 @@ class Example(MDApp):
             
             
     
-
+    def save_checked(self,checkbox, value,a,b,c,w):
+        mmm="""
+            You clicked on:  Josue Carranza jbsidis
+            Selected Items 4: [[<WeakProxy to <kivy.factory.CB object at 0x7efc032f4430>>], [<WeakProxy to <kivy.factory.CB object at 0x7efc032f4430>>], [<WeakProxy to <kivy.factory.CB object at 0x7efc0324d9e0>>], [<WeakProxy to <kivy.factory.CB object at 0x7efc03137b30>>]]
+            """
+        if value:
+            print('The checkbox is active', 'and', checkbox.state, 'state')
+            selected_item=[]
+            if len(selected_item)==0:
+                selected_item = []
+                selected_item.append([w])
+                print("\n\nYou clicked on: ",a,b,c)
+                print("Selected Items "+str(len(selected_item))+": "+str(selected_item))
+            if len(selected_item)>0:
+                selected_item.append([w])
+                print("\n\nYou clicked on: ",a,b,c)
+                print("Selected Items "+str(len(selected_item))+": "+str(selected_item))
+                self.root.ids.cm.text="Save "+str(len(selected_item))
+        else:
+            print('\n\nThe checkbox is inactive', 'and', checkbox.state, 'state')
+            new_list=[]
+            if len(selected_item)>0:
+                for x in selected_item:
+                    if x==w:
+                        pass
+                    if x!=w:
+                        new_list=new_list+[w]
+                selected_item=new_list
+                
+                print("\n\nNew Items: "+str(selected_item))
 
 
 
