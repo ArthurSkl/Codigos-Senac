@@ -20,13 +20,6 @@ from kivymd.uix.selectioncontrol import MDCheckbox
 from datetime import datetime
 
 
-
-
-
-
-
-
-
 class ContentNavigationDrawer(MDScrollView):
     screen_manager = ObjectProperty()
     nav_drawer = ObjectProperty()
@@ -61,7 +54,7 @@ class Example(MDApp):
         db = Banco()
         db.cadastro(dados)
 
-        self.root.ids.nome_cadastro.text=""
+        self.root.ids.nome_cadastro.text="" 
         self.root.ids.descricao_cadastro.text=""
         self.root.ids.data.text =""
       
@@ -95,14 +88,20 @@ class Example(MDApp):
     def on_start(self):
         self.banco=Banco()
         dados=self.banco.mostrar_dados()
-        icons = list(md_icons.keys())
+        # icons = list(md_icons.keys())
         # print(dados)
-        for i in range(len(dados)):
-            informacoes=dados[i]
-            # print(informacoes)
-            # print(informacoes[1])
+        for i in range(len(dados)): 
+            
+            # msg = "".join(list(dados[i])) 
+            # print(msg)
+            msg = ""
+            for x in dados[i]:
+                msg += f"  {str(x)}  "
+            
+            
             self.root.ids.id_item_lista.add_widget(
-                OneLineListItem(text=f"{dados[i]}"),
+            
+                OneLineListItem(text=f"{msg}"),
             )
     
     def get_id(self):
@@ -150,10 +149,6 @@ class Example(MDApp):
         self.root.ids.nome_tarefa_deletar.text=(f"{self.dados[0][1]}")
         self.root.ids.descricao_tarefa_deletar.text=(f"{self.dados[0][2]}")
         self.root.ids.data.text=(f"{self.dados[0][3]}")
-    
-    
-    
-    
     
     def deletar_tarefa(self):
         
