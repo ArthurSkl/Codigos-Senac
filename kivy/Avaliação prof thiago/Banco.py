@@ -8,10 +8,11 @@ class Banco:
     def cadastro(self, valores):
         with self.conexao:
             cur = self.conexao.cursor()
-            # cur.execute("CREATE TABLE Tarefas (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, descricao TEXT, dia_em DATE, status TEXT DEFAULT 'A Fazer')")
             query = "INSERT INTO Tarefas (nome, descricao, dia_em) VALUES (?, ?, ?)"
             cur.execute(query, valores)
-            self.conexao.commit()             
+            self.conexao.commit()    
+             
+                    
     # def mostrar_dados(self):
     #     with self.conexao:
     #         lista = []
@@ -33,10 +34,53 @@ class Banco:
             dados = cur.fetchall()
         for i in dados:
             # Adicione um valor que indica se a tarefa está "Feita" ou "Pendente"
-            status = "Feito" if i[1] == "Feito" else "Pendente"
-            lista.append((i[0], status, i[2], i[3], i[4]))
+            
+            lista.append(i)
         return lista
 
+    def consultar_tarefa(self,id):
+        with self.conexao:
+            lista = []
+            cur = self.conexao.cursor()
+            query = "SELECT * FROM Tarefas WHERE id = ?"  # Use ? como marcador de posição
+            cur.execute(query, (id,))  # Passe o ID como um parâmetro
+            dados = cur.fetchall()
+
+        for i in dados:
+            # Adicione os dados relevantes à lista
+            lista.append(i)
+
+        return lista 
+    
+    
+    
+    
+    def atualizar_tarefa(self, id, nome, descricao, data):
+        with self.conexao:
+            cur = self.conexao.cursor()
+            query = "UPDATE Tarefas SET nome = ?, descricao = ?, dia_em = ? WHERE id = ?"
+            self.conexao.commit()  
+            cur.execute(query,(nome,descricao,data,id))
+            self.conexao.commit()     
+    
+    
+    
+    def deletar_tarefa(self, id):
+        with self.conexao:
+            cur = self.conexao.cursor()
+            query = "DELETE FROM Tarefas WHERE id = ?"
+            cur.execute(query, (id,))
+            self.conexao.commit()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     # def atualiza_info(i):
     #     with conexao: 
     #         cur = conexao.cursor()
