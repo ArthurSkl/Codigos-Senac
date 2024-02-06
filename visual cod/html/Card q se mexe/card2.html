@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+
+*{
+
+    margin: 0;
+    padding: 0;
+}
+
+
+body{
+
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(90deg, #2c2761, #292968);
+
+}
+/*works janky on mobile :<*/
+.container {
+  position: relative;
+  width: 190px;
+  height: 254px;
+  transition: 50ms;
+}
+
+.container:active {
+ transform: scale(0.9);
+}
+
+#card {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  transition: 700ms;
+  background: linear-gradient(43deg,  #a0283c 0%,#22193b 100%);
+}
+
+.subtitle {
+  transform: translateY(160px);
+  color: rgb(134, 110, 221);
+  text-align: center;
+  width: 100%;
+}
+
+.title {
+  opacity: 0;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out-out;
+  transition-delay: 100ms;
+  position: absolute;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.tracker:hover ~ #card .title {
+  opacity: 1;
+}
+
+#prompt {
+  bottom: 8px;
+  left: 12px;
+  z-index: 20;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 300ms ease-in-out-out;
+  position: absolute;
+  max-width: 110px;
+  color: rgb(255, 255, 255);
+}
+
+.tracker {
+  position: absolute;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+  
+}
+
+.tracker:hover {
+  cursor: pointer;
+}
+
+.tracker:hover ~ #card #prompt {
+  opacity: 0;
+}
+
+.tracker:hover ~ #card {
+  transition: 300ms;
+  filter: brightness(1.1);
+}
+
+.container:hover #card::before {
+  transition: 200ms;
+  content: '';
+  opacity: 80%;
+}
+
+.canvas {
+  perspective: 800px;
+  inset: 0;
+  z-index: 200;
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas: "tr-1 tr-2 tr-3 tr-4 tr-5"
+    "tr-6 tr-7 tr-8 tr-9 tr-10"
+    "tr-11 tr-12 tr-13 tr-14 tr-15"
+    "tr-16 tr-17 tr-18 tr-19 tr-20"
+    "tr-21 tr-22 tr-23 tr-24 tr-25";
+}
+
+#card::before {
+  content: '';
+  background: linear-gradient(43deg,#642020, #e9935a);
+  filter: blur(2rem);
+  opacity: 30%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  transition: 200ms;
+}
+
+.tr-1 {
+  grid-area: tr-1;
+}
+
+.tr-2 {
+  grid-area: tr-2;
+}
+
+.tr-3 {
+  grid-area: tr-3;
+}
+
+.tr-4 {
+  grid-area: tr-4;
+}
+
+.tr-5 {
+  grid-area: tr-5;
+}
+
+.tr-6 {
+  grid-area: tr-6;
+}
+
+.tr-7 {
+  grid-area: tr-7;
+}
+
+.tr-8 {
+  grid-area: tr-8;
+}
+
+.tr-9 {
+  grid-area: tr-9;
+}
+
+.tr-10 {
+  grid-area: tr-10;
+}
+
+.tr-11 {
+  grid-area: tr-11;
+}
+
+.tr-12 {
+  grid-area: tr-12;
+  
+ 
+}
+
+.tr-13 {
+  grid-area: tr-13;
+}
+
+.tr-14 {
+  grid-area: tr-14;
+}
+
+.tr-15 {
+  grid-area: tr-15;
+}
+
+.tr-16 {
+  grid-area: tr-16;
+}
+
+.tr-17 {
+  grid-area: tr-17;
+}
+
+.tr-18 {
+  grid-area: tr-18;
+}
+
+.tr-19 {
+  grid-area: tr-19;
+}
+
+.tr-20 {
+  grid-area: tr-20;
+}
+
+.tr-21 {
+  grid-area: tr-21;
+}
+
+.tr-22 {
+  grid-area: tr-22;
+}
+
+.tr-23 {
+  grid-area: tr-23;
+}
+
+.tr-24 {
+  grid-area: tr-24;
+}
+
+.tr-25 {
+  grid-area: tr-25;
+}
+
+
+.tr-1:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg);
+}
+.tr-1:hover  b {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.tr-2:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.tr-3:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.tr-4:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.tr-5:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(20deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.tr-6:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.tr-7:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.tr-8:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.tr-9:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.tr-10:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(10deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.tr-11:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.tr-12:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.tr-13:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.tr-14:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.tr-15:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(0deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.tr-16:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.tr-17:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.tr-18:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.tr-19:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.tr-20:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-10deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.tr-21:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(-10deg) rotateZ(0deg);
+}
+
+.tr-22:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(-5deg) rotateZ(0deg);
+}
+
+.tr-23:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(0deg) rotateZ(0deg);
+}
+
+.tr-24:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(5deg) rotateZ(0deg);
+}
+
+.tr-25:hover ~ #card {
+  transition: 125ms ease-in-out;
+  transform: rotateX(-20deg) rotateY(10deg) rotateZ(0deg);
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+   /* iOS Safari */
+  -webkit-user-select: none;
+   /* Safari */
+   /* Konqueror HTML */
+  -moz-user-select: none;
+   /* Old versions of Firefox */
+  -ms-user-select: none;
+   /* Internet Explorer/Edge */
+  user-select: none;
+   /* Non-prefixed version, currently
+									supported by Chrome, Edge, Opera and Firefox */
+}
+.geral{
+
+    display: flex; 
+    gap: 60px;
+    
+    margin-top: 50px;
+    flex-wrap: wrap;
+    justify-content: space-evenly   ;
+
+
+}
+.area_geral{
+
+    display: flex;
+    align-items: center; 
+
+}
+.canvas b{
+
+    position: absolute;
+   
+    inset: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+
+}
+.title{
+
+     width: 100%;
+     height: 100%;
+     display: flex;
+     align-items: end;
+    
+}
+.area_bot{
+
+    width: 100%;
+    height: 100%;
+   
+    border-radius:20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+/* .area_bot button{
+
+    padding: 10px;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 2px solid white;
+    outline: none;
+    color: white;
+    font-size: 20px;
+     
+
+} */
+.ft_evento{
+
+    width: 120px;
+    border-radius: 100%;
+    border: 2px solid #0f0f11;
+
+}
+p{
+
+text-align: center;
+color: white;
+
+}
+
+/* BUTTON  ================================================================= */
+
+/* button{
+
+    padding: 10px;
+    border: 2px solid white;
+
+    color: white;
+    border-radius: 10px;
+    background-color: transparent;
+}
+a{
+
+    text-decoration: none;
+    
+
+} */
+
+a{
+  color: white;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 3rem;
+  background-size: 300% 300%;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+  transition: 0.5s;
+  animation: gradient_301 5s ease infinite;
+  border: double 4px transparent;
+  background-image: linear-gradient(#212121, #212121),  linear-gradient(137.48deg, #ffdb3b 10%,#db9539 45%, #8F51EA 67%, #0044ff 87%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+   
+}
+
+#container-stars {
+  position: fixed;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: 0.5s;
+  backdrop-filter: blur(1rem);
+  border-radius: 5rem;
+}
+
+strong {
+  z-index: 2;
+  font-family: 'Avalors Personal Use';
+  font-size: 12px;
+  letter-spacing: 5px;
+  color: #FFFFFF;
+  text-shadow: 0 0 4px white;
+}
+
+#glow {
+  position: absolute;
+  display: flex;
+  width: 12rem;
+}
+
+.circle {
+  width: 100%;
+  height: 30px;
+  filter: blur(2rem);
+  animation: pulse_3011 4s infinite;
+  z-index: -1;
+}
+
+.circle:nth-of-type(1) {
+  background: rgba(180, 254, 83, 0.636);
+}
+
+.circle:nth-of-type(2) {
+  background: rgba(142, 81, 234, 0.704);
+}
+
+.btn:hover #container-stars {
+  z-index: 1;
+  background-color: #212121;
+}
+
+.btn:hover {
+  transform: scale(1.1)
+}
+
+.btn:active {
+  border: double 4px #888d47;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  animation: none;
+}
+
+.btn:active .circle {
+  background: #141113;
+}
+
+#stars {
+  position: relative;
+  background: transparent;
+  width: 200rem;
+  height: 200rem;
+}
+
+#stars::after {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  left: -100rem;
+  width: 100%;
+  height: 100%;
+  animation: animStarRotate 90s linear infinite;
+}
+
+#stars::after {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+}
+
+#stars::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 170%;
+  height: 500%;
+  animation: animStar 60s linear infinite;
+}
+
+#stars::before {
+  background-image: radial-gradient(#ffffff 1px, transparent 1%);
+  background-size: 50px 50px;
+  opacity: 0.5;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-135rem);
+  }
+}
+
+@keyframes animStarRotate {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+@keyframes gradient_301 {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse_3011 {
+  0% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="area_geral">
+
+    <div class="geral">
+
+
+        <div class="container noselect">
+            
+            <a href="https://www.youtube.com" class="canvas">
+              
+                <!-- <b></b> -->
+
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div class="tracker tr-10"></div>
+              <div class="tracker tr-11"></div>
+              <div class="tracker tr-12"></div>
+              <div class="tracker tr-13"></div>
+              <div class="tracker tr-14"></div>
+              <div class="tracker tr-15"></div>
+              <div class="tracker tr-16"></div>
+              <div class="tracker tr-17"></div>
+              <div class="tracker tr-18"></div>
+              <div class="tracker tr-19"></div>
+              <div class="tracker tr-20"></div>
+              <div class="tracker tr-21"></div>
+              <div class="tracker tr-22"></div>
+              <div class="tracker tr-23"></div>
+              <div class="tracker tr-24"></div>
+              <div class="tracker tr-25"></div>
+              <div id="card">
+                
+                <img class="ft_evento" src="ft_perfil.jpeg"><br>
+                <h4>Manuela fagundes filho</h4><br>
+                <p>Workshop -  Inteligência Artificial</p>
+                <div class="title">
+
+                    <div class="area_bot">
+                        <button type="button" class="btn">
+                            <strong>Inscreva-se</strong>
+                            <div id="container-stars">
+                              <div id="stars"></div>
+                            </div>
+                          
+                            <div id="glow">
+                              <div class="circle"></div>
+                              <div class="circle"></div>
+                            </div>
+                        </button>
+                          
+                        
+                    </div>
+
+                </div>
+      
+              </div>
+            </a>
+        </div>
+        <div class="container noselect">
+            
+            <div class="canvas">
+              
+                <!-- <b></b> -->
+
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div class="tracker tr-10"></div>
+              <div class="tracker tr-11"></div>
+              <div class="tracker tr-12"></div>
+              <div class="tracker tr-13"></div>
+              <div class="tracker tr-14"></div>
+              <div class="tracker tr-15"></div>
+              <div class="tracker tr-16"></div>
+              <div class="tracker tr-17"></div>
+              <div class="tracker tr-18"></div>
+              <div class="tracker tr-19"></div>
+              <div class="tracker tr-20"></div>
+              <div class="tracker tr-21"></div>
+              <div class="tracker tr-22"></div>
+              <div class="tracker tr-23"></div>
+              <div class="tracker tr-24"></div>
+              <div class="tracker tr-25"></div>
+              <div id="card">
+                
+                <img class="ft_evento" src="/html/site 1/imagemR.jpeg"><br>
+                <h4>Rammus Tiltador ! </h4><br>
+                <p>texto aleatorio ! dsadsa 
+                  d asdas 
+                  d sada 
+                  das das das dsa das das
+                  das das dsa 
+                </p>
+                <div class="title">
+
+                    <div class="area_bot">
+                        <button type="button" class="btn">
+                            <strong>Saiba mais ! </strong>
+                            <div id="container-stars">
+                              <div id="stars"></div>
+                            </div>
+                          
+                            <div id="glow">
+                              <div class="circle"></div>
+                              <div class="circle"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+      
+              </div>
+            </div>
+        </div>
+        <div class="container noselect">
+            
+            <div class="canvas">
+              
+                <!-- <b></b> -->
+
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div class="tracker tr-10"></div>
+              <div class="tracker tr-11"></div>
+              <div class="tracker tr-12"></div>
+              <div class="tracker tr-13"></div>
+              <div class="tracker tr-14"></div>
+              <div class="tracker tr-15"></div>
+              <div class="tracker tr-16"></div>
+              <div class="tracker tr-17"></div>
+              <div class="tracker tr-18"></div>
+              <div class="tracker tr-19"></div>
+              <div class="tracker tr-20"></div>
+              <div class="tracker tr-21"></div>
+              <div class="tracker tr-22"></div>
+              <div class="tracker tr-23"></div>
+              <div class="tracker tr-24"></div>
+              <div class="tracker tr-25"></div>
+              <div id="card">
+                
+                <img class="ft_evento" src="ft_perfil.jpeg"><br>
+                <h4>Manuela fagundes filho</h4><br>
+                <p>Workshop -  Inteligência Artificial</p>
+                <div class="title">
+
+                    <div class="area_bot">
+                        <button type="button" class="btn">
+                            <strong>Inscreva-se</strong>
+                            <div id="container-stars">
+                              <div id="stars"></div>
+                            </div>
+                          
+                            <div id="glow">
+                              <div class="circle"></div>
+                              <div class="circle"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+      
+              </div>
+            </div>
+        </div>
+        <div class="container noselect">
+            
+            <div class="canvas">
+              
+                <!-- <b></b> -->
+
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div class="tracker tr-10"></div>
+              <div class="tracker tr-11"></div>
+              <div class="tracker tr-12"></div>
+              <div class="tracker tr-13"></div>
+              <div class="tracker tr-14"></div>
+              <div class="tracker tr-15"></div>
+              <div class="tracker tr-16"></div>
+              <div class="tracker tr-17"></div>
+              <div class="tracker tr-18"></div>
+              <div class="tracker tr-19"></div>
+              <div class="tracker tr-20"></div>
+              <div class="tracker tr-21"></div>
+              <div class="tracker tr-22"></div>
+              <div class="tracker tr-23"></div>
+              <div class="tracker tr-24"></div>
+              <div class="tracker tr-25"></div>
+              <div id="card">
+                
+                <img class="ft_evento" src="ft_perfil.jpeg"><br>
+                <h4>Manuela fagundes filho</h4><br>
+                <p>Workshop -  Inteligência Artificial</p>
+                <div class="title">
+
+                    <div class="area_bot">
+                        <button type="button" class="btn">
+                            <strong>Inscreva-se</strong>
+                            <div id="container-stars">
+                              <div id="stars"></div>
+                            </div>
+                          
+                            <div id="glow">
+                              <div class="circle"></div>
+                              <div class="circle"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+      
+              </div>
+            </div>
+        </div>
+        <div class="container noselect">
+            
+            <div class="canvas">
+              
+                <!-- <b></b> -->
+
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div class="tracker tr-10"></div>
+              <div class="tracker tr-11"></div>
+              <div class="tracker tr-12"></div>
+              <div class="tracker tr-13"></div>
+              <div class="tracker tr-14"></div>
+              <div class="tracker tr-15"></div>
+              <div class="tracker tr-16"></div>
+              <div class="tracker tr-17"></div>
+              <div class="tracker tr-18"></div>
+              <div class="tracker tr-19"></div>
+              <div class="tracker tr-20"></div>
+              <div class="tracker tr-21"></div>
+              <div class="tracker tr-22"></div>
+              <div class="tracker tr-23"></div>
+              <div class="tracker tr-24"></div>
+              <div class="tracker tr-25"></div>
+              <div id="card">
+                
+                <img class="ft_evento" src="ft_perfil.jpeg"><br>
+                <h4>Manuela fagundes filho</h4><br>
+                <p>Workshop -  Inteligência Artificial</p>
+                <div class="title">
+
+                    <div class="area_bot">
+                        <button type="button" class="btn">
+                            <strong>Inscreva-se</strong>
+                            <div id="container-stars">
+                              <div id="stars"></div>
+                            </div>
+                          
+                            <div id="glow">
+                              <div class="circle"></div>
+                              <div class="circle"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+      
+              </div>
+            </div>
+        </div>
+        <div class="container noselect">
+            
+            <div class="canvas">
+              
+                <!-- <b></b> -->
+
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div class="tracker tr-10"></div>
+              <div class="tracker tr-11"></div>
+              <div class="tracker tr-12"></div>
+              <div class="tracker tr-13"></div>
+              <div class="tracker tr-14"></div>
+              <div class="tracker tr-15"></div>
+              <div class="tracker tr-16"></div>
+              <div class="tracker tr-17"></div>
+              <div class="tracker tr-18"></div>
+              <div class="tracker tr-19"></div>
+              <div class="tracker tr-20"></div>
+              <div class="tracker tr-21"></div>
+              <div class="tracker tr-22"></div>
+              <div class="tracker tr-23"></div>
+              <div class="tracker tr-24"></div>
+              <div class="tracker tr-25"></div>
+              <div id="card">
+                
+                <img class="ft_evento" src="ft_perfil.jpeg"><br>
+                <h4>Manuela fagundes filho</h4><br>
+                <p>Workshop -  Inteligência Artificial</p>
+                <div class="title">
+
+                    <div class="area_bot">
+                        <button type="button" class="btn">
+                            <strong>Inscreva-se</strong>
+                            <div id="container-stars">
+                              <div id="stars"></div>
+                            </div>
+                          
+                            <div id="glow">
+                              <div class="circle"></div>
+                              <div class="circle"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+      
+              </div>
+            </div>
+        </div>
+        <div class="container noselect">
+            
+            <div class="canvas">
+              
+                <!-- <b></b> -->
+
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div class="tracker tr-10"></div>
+              <div class="tracker tr-11"></div>
+              <div class="tracker tr-12"></div>
+              <div class="tracker tr-13"></div>
+              <div class="tracker tr-14"></div>
+              <div class="tracker tr-15"></div>
+              <div class="tracker tr-16"></div>
+              <div class="tracker tr-17"></div>
+              <div class="tracker tr-18"></div>
+              <div class="tracker tr-19"></div>
+              <div class="tracker tr-20"></div>
+              <div class="tracker tr-21"></div>
+              <div class="tracker tr-22"></div>
+              <div class="tracker tr-23"></div>
+              <div class="tracker tr-24"></div>
+              <div class="tracker tr-25"></div>
+              <div id="card">
+                
+                <img class="ft_evento" src="ft_perfil.jpeg"><br>
+                <h4>Manuela fagundes filho</h4><br>
+                <p>Workshop -  Inteligência Artificial</p>
+                <div class="title">
+
+                    <div class="area_bot">
+                        <button type="button" class="btn">
+                            <strong>Inscreva-se</strong>
+                            <div id="container-stars">
+                              <div id="stars"></div>
+                            </div>
+                          
+                            <div id="glow">
+                              <div class="circle"></div>
+                              <div class="circle"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+      
+              </div>
+            </div>
+        </div>
+        <div class="container noselect">
+            
+            <div class="canvas">
+              
+                <!-- <b></b> -->
+
+              <div class="tracker tr-1"></div>
+              <div class="tracker tr-2"></div>
+              <div class="tracker tr-3"></div>
+              <div class="tracker tr-4"></div>
+              <div class="tracker tr-5"></div>
+              <div class="tracker tr-6"></div>
+              <div class="tracker tr-7"></div>
+              <div class="tracker tr-8"></div>
+              <div class="tracker tr-9"></div>
+              <div class="tracker tr-10"></div>
+              <div class="tracker tr-11"></div>
+              <div class="tracker tr-12"></div>
+              <div class="tracker tr-13"></div>
+              <div class="tracker tr-14"></div>
+              <div class="tracker tr-15"></div>
+              <div class="tracker tr-16"></div>
+              <div class="tracker tr-17"></div>
+              <div class="tracker tr-18"></div>
+              <div class="tracker tr-19"></div>
+              <div class="tracker tr-20"></div>
+              <div class="tracker tr-21"></div>
+              <div class="tracker tr-22"></div>
+              <div class="tracker tr-23"></div>
+              <div class="tracker tr-24"></div>
+              <div class="tracker tr-25"></div>
+              <div id="card">
+                
+                <img class="ft_evento" src="ft_perfil.jpeg"><br>
+                <h4>Manuela fagundes filho</h4><br>
+                <p>Workshop -  Inteligência Artificial</p>
+                <div class="title">
+
+                    <div class="area_bot">
+                        <button type="button" class="btn">
+                            <strong>Inscreva-se</strong>
+                            <div id="container-stars">
+                              <div id="stars"></div>
+                            </div>
+                          
+                            <div id="glow">
+                              <div class="circle"></div>
+                              <div class="circle"></div>
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+      
+              </div>
+            </div>
+        </div>
+    
+          
+    </div>
+
+
+</div>
+
+    
+    
