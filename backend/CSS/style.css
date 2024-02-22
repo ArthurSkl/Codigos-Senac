@@ -1,0 +1,72 @@
+canvas{
+  display:flex;
+
+
+}
+/* ---- particles.js container ---- */
+
+#particles-js{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -10;
+  top: 0;
+  left: 0;
+  
+}
+.fundo{
+ 
+  background-color: rgb(2, 2, 21);
+  opacity: 0.3;
+}
+.marcas{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 25%;
+
+}
+.marcas .logos{ 
+  display: flex;
+ flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+  
+  
+}
+.apoio{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+  padding-top: 25px;
+}
+
+
+ .img-logo{ 
+  display: flex;
+  height: 200px;
+}
+
+.img-logo-apoio{
+  
+  display: flex;
+  height: 60px;
+  padding: 10px;
+
+}
+.img-logo-fe{
+  display: flex;
+  height: 200px;
+}
+
+@media (max-width:1000px) {
+.marcas{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50%;
+
+}
+}

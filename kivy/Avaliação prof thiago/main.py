@@ -73,7 +73,9 @@ class Example(MDApp):
         # print(value)
         # print(self.data)
         self.root.ids.data.text=str(value)
-        self.data=value       
+        # self.root.ids.datas.text=str(value)
+        self.data=value 
+            
 
     def on_cancel(self, instance, value):
         '''Events called when the "CANCEL" dialog box button is clicked.'''
